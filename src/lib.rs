@@ -1,5 +1,6 @@
 #![doc(html_root_url = "https://docs.rs/loom/0.4.0")]
 #![deny(missing_debug_implementations, missing_docs, rust_2018_idioms)]
+#![feature(cfg_target_has_atomic)]
 
 //! Loom is a tool for testing concurrent programs.
 //!
