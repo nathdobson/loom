@@ -70,7 +70,7 @@ impl Scheduler {
             &RawWakerVTable::new(noop_clone, noop, noop, noop),
         );
         let mut waker = unsafe { Waker::from_raw(raw_waker) };
-        let mut cx = Context::from_waker(&mut waker, false);
+        let mut cx = Context::from_waker(&mut waker);
 
         assert!(switch.poll(&mut cx).is_ready());
     }
