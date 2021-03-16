@@ -33,7 +33,7 @@ impl Notify {
 
     /// Wait for a notification
     pub fn wait(&self) {
-        let actual = self.waiting.compare_and_swap(false, true, SeqCst);
+        let actual = self.waiting.compare_exchange(false, true, SeqCst, SeqCst).is_err();
         assert!(!actual, "only a single thread may wait on `Notify`");
 
         self.object.wait();

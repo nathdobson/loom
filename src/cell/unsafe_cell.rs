@@ -32,8 +32,8 @@ impl<T> UnsafeCell<T> {
     /// model.
     #[track_caller]
     pub fn with<F, R>(&self, f: F) -> R
-    where
-        F: FnOnce(*const T) -> R,
+        where
+            F: FnOnce(*const T) -> R,
     {
         self.state
             .with(location!(), || f(self.data.get() as *const T))
@@ -47,10 +47,15 @@ impl<T> UnsafeCell<T> {
     /// model.
     #[track_caller]
     pub fn with_mut<F, R>(&self, f: F) -> R
-    where
-        F: FnOnce(*mut T) -> R,
+        where
+            F: FnOnce(*mut T) -> R,
     {
         self.state.with_mut(location!(), || f(self.data.get()))
+    }
+
+    /// TODO
+    pub fn into_inner(self) -> T {
+        self.data.into_inner()
     }
 }
 
